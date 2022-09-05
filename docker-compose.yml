@@ -1,0 +1,36 @@
+services:
+
+  db:
+    image: postgres
+    container_name: db
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - env/db_variables.env
+
+  web:
+    build: .
+    container_name: web
+    # command: bash -c "python website/manage.py makemigrations && python website/manage.py migrate && python website/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/website
+    depends_on:
+      - db
+    env_file:
+      - env/web_variables.env
+      - env/db_variables.env
+    stdin_open: true
+    tty: true
+
+  nginx:
+    image: nginx
+    container_name: nginx_proxy
+    volumes:
+      - ./nginx:/etc/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    logging:
+      driver: none
