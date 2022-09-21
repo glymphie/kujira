@@ -120,14 +120,9 @@ GitHub.sublime-settings
 # Docker compose db
 data
 
-# My "website"
-markdown
-
 # Database migrations
 migrations
 
 # nginx keys
 nginx/*
 !nginx.conf
-
-

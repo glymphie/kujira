@@ -1,1 +1,3 @@
-# Placeholder
+# Needed for Django and Postgres
+django
+psycopg2-binary
