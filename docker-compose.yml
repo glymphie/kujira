@@ -11,9 +11,9 @@ services:
   web:
     build: .
     container_name: web
-    # command: bash -c "python website/manage.py makemigrations && python website/manage.py migrate && python website/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python website/manage.py makemigrations && python website/manage.py migrate && python website/manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/website
+      - .:/src
     depends_on:
       - db
     env_file:
