@@ -62,7 +62,7 @@ django-admin startproject yourprojectname src
 +CSRF_TRUSTED_ORIGINS = ['https://0.0.0.0']
 ```
 
-#### Environment file:
+#### Create environment file:
 
 Create the environment file `.env` from the provided template:
 
