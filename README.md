@@ -18,6 +18,12 @@
 
 ## Setup
 
+#### Clone and cd to repo
+
+```
+git clone https://github.com/glymphie/kujira.git && cd kujira
+```
+
 #### Create a new Django project in the src folder:
 
 ```
@@ -89,12 +95,16 @@ openssl genpkey -genparam -algorithm DH -out dhparam.pem -pkeyopt dh_paramgen_pr
 
 Move these 3 new files into the `nginx` folder. Alternatively, create symlinks.
 
+```
+mv *.pem nginx/
+```
+
 
 ## How to run
 
-https://www.linode.com/docs/guides/getting-started-with-nginx-part-4-tls-deployment-best-practices/#create-a-larger-diffie-hellman-prime
-
-
+```
+docker-compose up
+```
 
 ## Common errors
 #### Djangos Admin CSRF token
