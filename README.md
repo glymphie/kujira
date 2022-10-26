@@ -12,19 +12,19 @@
 
 <div align="center">
 
-### A "simple" and secure Docker-compose setup with a TLS proxy, supporting Django development and production environments.
+### A "simple" and secure Docker-compose setup with a TLS proxy, supporting Django in development and production.
 
 </div>
 
 ## Setup 📝
 
-#### Clone and cd to repo
+#### Clone and cd to the repository
 
 ```
 git clone https://github.com/glymphie/kujira.git && cd kujira
 ```
 
-#### Create a new Django project in the src folder:
+#### Create a new Django project in the `src` folder:
 
 ```
 django-admin startproject yourprojectname src
