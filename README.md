@@ -81,24 +81,20 @@ POSTGRES_PASSWORD='password'
 
 #### Generate Certificate and Private Key:
 - **Certbot:** Follow instructions from https://certbot.eff.org/
+
+Create symlinks to the certificate and key.
+
 - **Locally:**
 
 ```
-openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out certificate.pem -keyout key.pem
+openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
-Create DH Parameters:
+#### Create DH Parameters:
 
 ```
-openssl genpkey -genparam -algorithm DH -out dhparam.pem -pkeyopt dh_paramgen_prime_len:4096
+openssl genpkey -genparam -algorithm DH -out nginx/dhparam.pem -pkeyopt dh_paramgen_prime_len:4096
 ```
-
-Move these 3 new files into the `nginx` folder. Alternatively, create symlinks.
-
-```
-mv *.pem nginx/
-```
-
 
 ## How to run 🚀
 
