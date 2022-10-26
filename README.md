@@ -1,6 +1,6 @@
 <div align="center">
 
-# Kujira
+# 🐋 Kujira 🐋
 
 </div>
 
@@ -16,7 +16,7 @@
 
 </div>
 
-## Setup
+## Setup 📝
 
 #### Clone and cd to repo
 
@@ -100,13 +100,13 @@ mv *.pem nginx/
 ```
 
 
-## How to run
+## How to run 🚀
 
 ```
 docker-compose up
 ```
 
-## Common errors
+## Common errors 🤔
 #### Djangos Admin CSRF token
 
 ```
