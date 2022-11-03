@@ -12,34 +12,46 @@
 
 <div align="center">
 
-### A "simple" and secure Docker-compose setup with a TLS proxy, supporting Django in development and production.
+## A "simple" and secure Docker-compose setup with a TLS proxy, supporting Django in development and production.
 
 </div>
 
 ## Setup 📝
 
-#### Clone and cd to the repository
+### 1. Clone and cd to the repository
 
 ```
 git clone https://github.com/glymphie/kujira.git && cd kujira
 ```
 
-#### Create a new Django project in the `src` folder:
+### 2. Create a new Django project in the `src` folder:
 
 ```
 django-admin startproject yourprojectname src
 ```
 
-#### Add / change this in your `src/yourprojectname/settings.py`
+### 3. Add/change this in your `src/yourprojectname/settings.py`
 
 ```diff
+from pathlib import Path
 +import os
 
-+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
--SECRET_KEY = 'django-insecure-k-emo17%oafwv8l1lh6aene@zxgu+r0+hbpzid91f24d#yk4&f'
+...
 
-+ALLOWED_HOSTS = ['*']
+# SECURITY WARNING: keep the secret key used in production secret!
+-SECRET_KEY = 'django-insecure-k-emo17%oafwv8l1lh6aene@zxgu+r0+hbpzid91f24d#yk4&f'
++SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
 -ALLOWED_HOSTS = []
++ALLOWED_HOSTS = ['YOUR_DOMAIN OR *']
+
+...
+
+# Database
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 -DATABASES = {
 -    'default': {
@@ -59,10 +71,18 @@ django-admin startproject yourprojectname src
 +   },
 +}
 
-+CSRF_TRUSTED_ORIGINS = ['https://0.0.0.0']
+...
+
+USE_I18N = True
+
+USE_TZ = True
+
++# CSRF Trusted Origins
++CSRF_TRUSTED_ORIGINS = [YOUR_TRUSTED_DOMAINS e.g. 'https://YOUR_DOMAIN/']
+
 ```
 
-#### Create environment file:
+### 4. Create environment file:
 
 Create the environment file `.env` from the provided template:
 
@@ -79,28 +99,60 @@ POSTGRES_USER='username'
 POSTGRES_PASSWORD='password'
 ```
 
-#### Generate Certificate and Private Key:
-- **Certbot:** Follow instructions from https://certbot.eff.org/
 
-Create symlinks to the certificate and key.
 
-- **Locally:**
+### 5. Create DH Parameters:
+
+This could take some time on slower PCs.
+
+```
+openssl genpkey -genparam -algorithm DH -out nginx/dhparam.pem -pkeyopt dh_paramgen_prime_len:4096
+```
+
+### 6. Generate Certificate and Private Key (A. or B.):
+
+#### A. **Certbot:** Follow instructions from https://certbot.eff.org/
+
+Create symlinks to the certificate and key in the `nginx` folder for `YOUR_DOMAIN`.
+
+- `ln -s /etc/letsencrypt/live/YOUR_DOMAIN/fullchain.pem nginx/certificate.pem`
+- `ln -s /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem nginx/key.pem`
+
+Add/change the following in the `docker-compose.yml` file
+
+```diff
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    volumes:
+      - ./nginx:/etc/nginx
++     - /etc/letsencrypt/live/YOUR_DOMAIN:/etc/letsencrypt/live/YOUR_DOMAIN:ro
++     - /etc/letsencrypt/archive/YOUR_DOMAIN:/etc/letsencrypt/archive/YOUR_DOMAIN:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    logging:
+      driver: none
+```
+
+
+#### B. **Locally for testing only:**
 
 ```
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
-#### Create DH Parameters:
+# 7. DONE! 🥳
 
-```
-openssl genpkey -genparam -algorithm DH -out nginx/dhparam.pem -pkeyopt dh_paramgen_prime_len:4096
-```
 
 ## How to run 🚀
 
 ```
 docker-compose up
 ```
+
 
 ## Common errors 🤔
 #### Djangos Admin CSRF token
@@ -113,7 +165,7 @@ CSRF verification failed. Request aborted.
 
 see:
 - https://docs.djangoproject.com/en/4.1/ref/csrf/
-- https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-trusted-origins
+- https://docs.djangoproject.com/en/4.1/ref/settings/#csrf-trusted-origins
 
 ---
 
@@ -128,7 +180,7 @@ And the default django page is inherently insecure because it uses inline CSS.
 
 **I advice to not dig much deeper into this issue with the default page.**
 
-Just implement it into your own site and don't try to get the default django page to load its css.
+Just implement your own site without inline CSS and don't try to get the default django page to load its CSS. It won't work.
 
 see:
 - https://django-csp.readthedocs.io/en/latest/index.html
@@ -137,3 +189,6 @@ see:
 - https://content-security-policy.com/examples/allow-inline-style/
 
 
+#### Bugs
+
+For any encountered bugs or security issues, please submit an issue here on GitHub.
