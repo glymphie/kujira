@@ -27,10 +27,10 @@ git clone https://github.com/glymphie/kujira.git && cd kujira
 ### 2. Create a new Django project in the `src` folder:
 
 ```
-django-admin startproject yourprojectname src
+django-admin startproject YOUR_PROJECT_NAME src
 ```
 
-### 3. Add/change this in your `src/yourprojectname/settings.py`
+### 3. Add/change this in your `src/YOUR_PROJECT_NAME/settings.py`
 
 ```diff
 from pathlib import Path
@@ -144,7 +144,7 @@ Add/change the following in the `docker-compose.yml` file
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
-# 7. DONE! 🥳
+### 7. DONE! 🥳
 
 
 ## How to run 🚀
