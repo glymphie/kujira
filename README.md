@@ -97,7 +97,7 @@ Create the environment file `.env` from the provided template:
 cp env.template .env
 ```
 
-And change the values inside `.env` as you see fit:
+Change the values inside `.env` as you see fit:
 
 ```
 DJANGO_SECRET_KEY='django_web_key'
