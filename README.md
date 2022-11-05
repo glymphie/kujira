@@ -156,10 +156,18 @@ openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/cert
 
 ## How to run 🚀
 
+Start the containers:
+
 ```
 docker-compose up
 ```
 
+Run commands in the containers:
+
+```
+docker-compose exec web ps -aux
+docker-compose exec web ./src/manage.py createsuperuser
+```
 
 ## Common errors 🤔
 #### Djangos Admin CSRF token
