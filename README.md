@@ -16,6 +16,13 @@
 
 </div>
 
+## Requirements
+
+- [docker-compose](https://github.com/docker/compose) >= 2.12.2
+- [django](https://www.djangoproject.com/) >= 4.1.1
+    - `python3 -m pip install --user --upgrade -r requirement.txt`
+
+
 ## Setup 📝
 
 ### 1. Clone and cd to the repository
@@ -144,7 +151,7 @@ Add/change the following in the `docker-compose.yml` file
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
-# 7. DONE! 🥳
+### 7. DONE! 🥳
 
 
 ## How to run 🚀
