@@ -34,10 +34,10 @@ git clone https://github.com/glymphie/kujira.git && cd kujira
 ### 2. Create a new Django project in the `src` folder:
 
 ```
-django-admin startproject yourprojectname src
+django-admin startproject YOUR_PROJECT_NAME src
 ```
 
-### 3. Add/change this in your `src/yourprojectname/settings.py`
+### 3. Add/change this in your `src/YOUR_PROJECT_NAME/settings.py`
 
 ```diff
 from pathlib import Path
