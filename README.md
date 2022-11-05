@@ -20,7 +20,7 @@
 
 - [docker-compose](https://github.com/docker/compose) >= 2.12.2
 - [django](https://www.djangoproject.com/) >= 4.1.1
-    - `python3 -m pip install --user --upgrade -r requirement.txt`
+    - `python3 -m pip install --user django`
 
 
 ## Setup 📝
