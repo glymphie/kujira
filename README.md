@@ -165,7 +165,7 @@ docker-compose up
 Run commands in the containers:
 
 ```
-docker-compose exec web ps -aux
+docker-compose exec web sh
 docker-compose exec web ./src/manage.py createsuperuser
 ```
 
