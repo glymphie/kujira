@@ -20,7 +20,6 @@
 
 - [docker-compose](https://github.com/docker/compose) >= 2.12.2
 - [django](https://www.djangoproject.com/) >= 4.1.1
-    - `python3 -m pip install --user django`
 
 
 ## Setup 📝
@@ -140,12 +139,10 @@ Add/change the following in the `docker-compose.yml` file
       - "443:443"
     depends_on:
       - web
-    logging:
-      driver: none
 ```
 
 
-#### B. **Locally for testing only:**
+#### B. **Locally for development only:**
 
 ```
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
