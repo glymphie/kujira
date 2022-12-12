@@ -127,6 +127,7 @@ Create symlinks to the certificate and key in the `nginx` folder for `YOUR_DOMAI
 Add/change the following in the `docker-compose.yml` file
 
 ```diff
+...
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
@@ -139,6 +140,7 @@ Add/change the following in the `docker-compose.yml` file
       - "443:443"
     depends_on:
       - web
+...
 ```
 
 
@@ -148,7 +150,26 @@ Add/change the following in the `docker-compose.yml` file
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
-### 7. DONE! 🥳
+### 7. (OPTIONAL) Enable OCSP stapling
+
+**Does not work with locally created certificates.**
+
+With a valid root CA cert (such as the `fullchain.pem / certificate.pem` from letsencrypt)
+uncomment in `./nginx/nginx.conf`:
+
+```diff
+...
+    # OCSP stapling
+-   # ssl_stapling on;
+-   # ssl_stapling_verify on;
+-   # ssl_trusted_certificate /etc/nginx/certificate.pem;
++   ssl_stapling on;
++   ssl_stapling_verify on;
++   ssl_trusted_certificate /etc/nginx/certificate.pem;
+...
+```
+
+### 8. DONE! 🥳
 
 
 ## How to run 🚀
@@ -201,6 +222,24 @@ see:
 - https://content-security-policy.com/examples/allow-inline-style/
 
 
-#### Bugs
+## Bugs 🪲
 
 For any encountered bugs or security issues, please submit an issue here on GitHub.
+
+Thank you ❤️
+
+## Resources and inspiration
+
+- https://ssl-config.mozilla.org/
+- https://www.linode.com/docs/guides/how-to-install-and-use-nginx-on-ubuntu-20-04/
+- https://www.linode.com/docs/guides/getting-started-with-nginx-part-1-installation-and-basic-setup/
+- https://www.linode.com/docs/guides/getting-started-with-nginx-part-2-advanced-configuration/
+- https://www.linode.com/docs/guides/getting-started-with-nginx-part-3-enable-tls-for-https/
+- https://www.linode.com/docs/guides/getting-started-with-nginx-part-4-tls-deployment-best-practices/
+- https://certbot.eff.org/
+- https://www.ssllabs.com/ssltest
+
+## SSLLabs test
+<div align="center">
+    <img src="https://i.imgur.com/fMhWxhQ.png" alt="Kujira" align="center" width=700>
+</div>
