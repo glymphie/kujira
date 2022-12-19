@@ -204,20 +204,6 @@ see:
 
 #### CSP errors
 
-> The default django page is all weird.
-
-The Content Security Policy (CSP) does not allow inline CSS by default.
-
-And the default django page is inherently insecure because it uses inline CSS.
-(Who would have thought?)
-
-**I advice to not dig much deeper into this issue with the default page.**
-
-Just implement your own site without inline CSS and don't try to get the default django page to load its CSS. It won't work.
-
-Also, if the browser doesn't trust a page's certificate, it won't load any resources. To do local development, adding a port
-for the website without https might be the only solution.
-
 see:
 - https://django-csp.readthedocs.io/en/latest/index.html
 - https://www.stackhawk.com/blog/django-content-security-policy-guide-what-it-is-and-how-to-enable-it/
