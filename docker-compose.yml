@@ -12,6 +12,7 @@ services:
       - "443:443"
     depends_on:
       - web
+    restart: always
 
   db:
     image: postgres:latest
@@ -25,6 +26,7 @@ services:
       interval: 1s
       retries: 10
       timeout: 10s
+    restart: always
 
   web:
     build: .
