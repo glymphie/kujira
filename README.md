@@ -27,6 +27,8 @@
 
 ```bash
 git clone https://github.com/glymphie/kujira.git && cd kujira
+```
+```bash
 python -m venv .venv && source .venv/bin/activate && python -m pip install -r requirements.txt
 ```
 
