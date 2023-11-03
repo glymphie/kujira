@@ -1,7 +1,5 @@
 version: "3.9"
-
 services:
-
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
@@ -13,7 +11,6 @@ services:
     depends_on:
       - web
     restart: always
-
   db:
     image: postgres:latest
     container_name: db
@@ -27,7 +24,6 @@ services:
       retries: 10
       timeout: 10s
     restart: always
-
   web:
     build: .
     container_name: web
@@ -40,4 +36,3 @@ services:
     env_file:
       - .env
     restart: always
-

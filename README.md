@@ -21,18 +21,18 @@
 - [docker-compose](https://github.com/docker/compose) >= 2.12.2
 - [django](https://www.djangoproject.com/) >= 4.1.1
 
-
 ## Setup 📝
 
-### 1. Clone and cd to the repository
+### 1. Clone, cd to the repository, and install requirements
 
-```
+```bash
 git clone https://github.com/glymphie/kujira.git && cd kujira
+python -m venv .venv && source .venv/bin/activate && python -m pip install -r requirements.txt
 ```
 
 ### 2. Create a new Django project in the `src` folder:
 
-```
+```bash
 django-admin startproject YOUR_PROJECT_NAME src
 ```
 
@@ -92,26 +92,24 @@ USE_TZ = True
 
 Create the environment file `.env` from the provided template:
 
-```
+```bash
 cp env.template .env
 ```
 
 Change the values inside `.env` as you see fit:
 
-```
+```env
 DJANGO_SECRET_KEY='django_web_key'
 POSTGRES_DB='main'
 POSTGRES_USER='username'
 POSTGRES_PASSWORD='password'
 ```
 
-
-
 ### 5. Create DH Parameters:
 
 This could take some time on slower PCs.
 
-```
+```bash
 openssl genpkey -genparam -algorithm DH -out nginx/dhparam.pem -pkeyopt dh_paramgen_prime_len:4096
 ```
 
@@ -143,10 +141,9 @@ Add/change the following in the `docker-compose.yml` file
 ...
 ```
 
-
 #### B. **Locally for development only:**
 
-```
+```bash
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out nginx/certificate.pem -keyout nginx/key.pem
 ```
 
@@ -171,23 +168,23 @@ uncomment in `./nginx/nginx.conf`:
 
 ### 8. DONE! 🥳
 
-
 ## How to run 🚀
 
 Start the containers:
 
-```
+```bash
 docker-compose up
 ```
 
 Run commands in the containers:
 
-```
+```bash
 docker-compose exec web sh
 docker-compose exec web ./src/manage.py createsuperuser
 ```
 
 ## Common errors 🤔
+
 #### Djangos Admin CSRF token
 
 ```
@@ -197,6 +194,7 @@ CSRF verification failed. Request aborted.
 ```
 
 see:
+
 - https://docs.djangoproject.com/en/4.1/ref/csrf/
 - https://docs.djangoproject.com/en/4.1/ref/settings/#csrf-trusted-origins
 
@@ -205,11 +203,11 @@ see:
 #### CSP errors
 
 see:
+
 - https://django-csp.readthedocs.io/en/latest/index.html
 - https://www.stackhawk.com/blog/django-content-security-policy-guide-what-it-is-and-how-to-enable-it/
 - https://realpython.com/django-nginx-gunicorn/#adding-a-content-security-policy-csp-header
 - https://content-security-policy.com/examples/allow-inline-style/
-
 
 ## Bugs 🪲
 
@@ -229,6 +227,7 @@ Thank you ❤️
 - https://www.ssllabs.com/ssltest
 
 ## SSLLabs test
+
 <div align="center">
     <img src="https://i.imgur.com/fMhWxhQ.png" alt="Kujira" align="center" width=700>
 </div>
