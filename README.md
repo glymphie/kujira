@@ -176,6 +176,8 @@ Start the containers:
 docker-compose up
 ```
 
+Access via <a href="https://localhost/">https://localhost/</a>.
+
 Run commands in the containers:
 
 ```bash
